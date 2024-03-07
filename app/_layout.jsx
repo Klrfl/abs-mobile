@@ -18,10 +18,11 @@ export default function RootLayout() {
   return (
     <Stack onLayout={onLayoutRootView}>
       <Stack.Screen
-        name="home"
+        name="(tabs)"
         options={{
-          headerShadowVisible: false,
+          headerShown: false,
         }}
       />
-    </Stack>)
+    </Stack>
+  )
 }

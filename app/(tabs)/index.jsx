@@ -2,7 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 
 import { SafeAreaView } from "react-native-safe-area-context"
 import { MaterialIcons } from "@expo/vector-icons"
 import { useState } from "react"
-import Coffee from "../components/home/Coffee"
+import Coffee from "../../components/home/Coffee"
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
