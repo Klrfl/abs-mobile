@@ -15,5 +15,13 @@ export default function RootLayout() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) return null;
-  return <Stack onLayout={onLayoutRootView} />
+  return (
+    <Stack onLayout={onLayoutRootView}>
+      <Stack.Screen
+        name="home"
+        options={{
+          headerShadowVisible: false,
+        }}
+      />
+    </Stack>)
 }

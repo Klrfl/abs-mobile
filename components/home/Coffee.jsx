@@ -1,35 +1,27 @@
-import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import useFetch from "../useFetch";
+import { Link } from "expo-router";
 
 export default function Coffee() {
-  const [menuItems, setMenuItems] = useState([])
-
-  const endpoint = "http://127.0.0.1:8080/api/menu?type_id=1";
-  const getMenuItems = async () => {
-    try {
-      const response = await fetch(endpoint)
-      const { data } = await response.json()
-      setMenuItems(data)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    getMenuItems()
-  }, [])
+  const { data, isLoading, error } = useFetch("menu?type_id=1")
 
   const renderMenuItems = ({ item }) => <MenuItem item={item} />
   return (
     <View>
       <Text>Coffee</Text>
-      <FlatList
-        style={styles.menuList}
-        data={menuItems}
-        renderItem={renderMenuItems}
-        keyExtractor={item => item.id}
-        horizontal
-      />
+      {isLoading ?
+        <Text>Loading coffees..</Text>
+        : error ?
+          (<Text>{error.message}</Text>)
+          :
+          <FlatList
+            style={styles.menuList}
+            data={data}
+            renderItem={renderMenuItems}
+            keyExtractor={item => item.id}
+            horizontal
+          />
+      }
     </View>
   )
 }
@@ -37,8 +29,12 @@ export default function Coffee() {
 function MenuItem({ item }) {
   return (
     <View style={styles.menuItem}>
-      <Text>{item.name}</Text>
-      <Text>{item.type.type}</Text>
+      <Link href={{ pathname: "/menu/[id]", params: { id: item.id } }} asChild>
+        <Pressable>
+          <Text>{item.name}</Text>
+          <Text>{item.type.type}</Text>
+        </Pressable>
+      </Link>
     </View>
   )
 }

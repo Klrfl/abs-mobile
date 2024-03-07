@@ -1,23 +1,15 @@
-import { Link, Stack } from "expo-router"
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, FlatList } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { MaterialIcons } from "@expo/vector-icons"
 import { useState } from "react"
 import Coffee from "../components/home/Coffee"
 
-export default function Page() {
+export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
 
   return (
     <SafeAreaView>
-      <Stack.Screen
-        options={{
-          headerShadowVisible: false,
-          headerTitle: "",
-          headerRight: () => (<Link href="/about">About</Link>)
-        }}
-      />
-      <View style={{ padding: 10 }}>
+      <ScrollView style={{ padding: 10 }}>
         <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Welcome to ABS App</Text>
         <View style={styles.inputWrapper}>
           <TextInput
@@ -32,7 +24,7 @@ export default function Page() {
         </View>
 
         <Coffee />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
